@@ -11,7 +11,7 @@ stock_name = input("Enter Stock Ticker: ")
 
 now = dt.datetime.now()
 
-data = yf.download(stock_name, '2019-01-01', '2020-03-25')
+data = yf.download(stock_name, '2019-01-01', now)
 
 prices =  data.Close[-30:]
 
