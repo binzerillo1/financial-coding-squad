@@ -42,7 +42,7 @@ while (stock_name != 'quit'):
         d4_stoch = d4_stoch + [temp]
         i = i + 1
 
-    # print (d4_stoch)
+    #print (d4_stoch)
 
     d4_stoch_arr = pd.Series(d4_stoch)
 
@@ -54,7 +54,7 @@ while (stock_name != 'quit'):
         k4_stoch = k4_stoch + [temp]
         j = j + 1
 
-    # print (k4_stoch)
+    #print (k4_stoch)
 
     k4_stoch_arr = pd.Series(k4_stoch)
     day = 1
@@ -64,6 +64,9 @@ while (stock_name != 'quit'):
         if ( d4_stoch_arr[day-1] > k4_stoch_arr[day-1] and d4_stoch_arr[day] < k4_stoch_arr[day] ):
             stoch_xover = True
             print ("Stochastic Crossover " + str(day) + " day(s) ago.")
+            stoch_xover == True
         else:
             day = day + 1
+            
+    if (stoch_xover == False): print("No Stochastic Crossover recently")
     stock_name = input("Next stock: ")
