@@ -4,7 +4,6 @@
 # I want it to indicate setups and technical features of the stock
 # Brian Inzerillo 5.21.2020
 
-import tkinter as tk
 import yfinance as yf
 import numpy as np
 import datetime as dt
@@ -16,7 +15,7 @@ import os
 # list of all the desired technical quanitities
 # output list format:
 # green_dot, green_dot_days, boll_band_sq, boll_band_sq_days,
-# boll_band_dip, boll_band_dip_days, green_line_price,
+# boll_band_dip, green_line_price,
 # green_line_prox, green_line_prox_perc, daily_rwb, stochastic,
 # stoch_under, stage_two, dist_days, dist_days_limit, below_green
 # NOTE: if a number is undefined, it will be given as 6969
@@ -91,20 +90,17 @@ def Crank(stck):
     while (x > -20) :
         if ( x < -1):
             low_last_ten = float(min(data.Low[x-9:x+1]))
-            # print(low_last_ten)
             high_last_ten = float(max(data.High[x-9:x+1]))
-            # print(high_last_ten)
         else:
             low_last_ten = float(min(data.Low[x-9:]))
-            # print(low_last_ten)
             high_last_ten = float(max(data.High[x-9:]))
-            # print(high_last_ten)
-
+            
         new = (float(data.Close[x]) - low_last_ten) / ( high_last_ten - low_last_ten )
         stoch = stoch + [new]
         x = x - 1
+        
     stoch_arr = pd.Series(stoch)
-    # print (stoch)
+    
     d4_stoch = []
     i = 0
     while (i < 10):
@@ -114,7 +110,7 @@ def Crank(stck):
     cur_d4 = temp
     #print (cur_d4)
     d4_stoch_arr = pd.Series(d4_stoch)
-    #print(d4_stoch_arr)
+    # print(d4_stoch_arr)
     k4_stoch = []
     j = 0
     while (j < 6):
@@ -124,9 +120,65 @@ def Crank(stck):
     cur_d44 = temp
     #print (cur_d44)
     k4_stoch_arr = pd.Series(k4_stoch)
-    stochastic = cur_d4
+    stochastic = d4_stoch_arr[0]
     
-    numbers = [0,1,2,3,4,5,6,7,8,daily_rwb,stochastic,11,12,13,14,15]
+    sxday = 1
+    stoch_xover = False
+
+    while ( stoch_xover == False and sxday < 6 ):
+        if ( d4_stoch_arr[sxday-1] > k4_stoch_arr[sxday-1] and d4_stoch_arr[sxday] < k4_stoch_arr[sxday] and d4_stoch_arr[sxday] < 70):
+            stoch_xover = True
+        else:
+            sxday = sxday + 1
+            
+    if (stoch_xover == False): 
+        green_dot = False
+        green_dot_days = 6969
+    else: 
+        green_dot = True
+        green_dot_days = sxday
+    
+    if(stochastic < 80): stoch_under = True
+    else: stoch_under = False
+    
+    prices =  data.Close[-30:]
+
+    period = 15
+    bb = []
+
+    i = 0
+
+    while(i < 16):
+        price_period = prices[i:i+period]
+        mean = price_period.mean()
+        var = 0
+        for j in range(0, 15):
+            var = (price_period[j]-mean)*(price_period[j]-mean) + var
+        std = np.sqrt(var/15)
+        bb = bb + [round(2*std,2)]
+        i = i + 1
+
+    bb_arr = pd.Series(bb)
+         
+    boll_band_sq_days = 0
+    
+    for g in range(0, 5):
+        if( (bb_arr[15-g] - bb_arr[14-g]) < 0):
+            boll_band_sq_days += 1
+    
+    if (boll_band_sq_days > 4):
+        boll_band_sq = True
+    else:
+        boll_band_sq = False
+        boll_band_sq_days = 6969
+        
+    if (data.Low[-1] < moving_avg_15 - bb_arr[len(bb)-1]):
+        boll_band_dip = True
+    else:
+        boll_band_dip = False
+    
+    
+    numbers = [green_dot, green_dot_days,boll_band_sq,boll_band_sq_days, boll_band_dip, 'IP', 'IP', 'IP', daily_rwb, stochastic, stoch_under, 'IP', 'IP', 'IP','IP']
     return numbers
 # ----------------------------------------------------------------
 
@@ -140,26 +192,8 @@ file = open('fundamental_100.txt', 'r')
 input = file.readlines()
 file.close()
 
-#create storage for all the values
-stock_name = []
-green_dot = []
-# green_dot_days = []
-# boll_band_sq = []
-# boll_band_sq_days = []
-# boll_band_dip = []
-# boll_band_dip_days = []
-# green_line_price = []
-# green_line_prox = []
-# green_line_prox_perc = []
-# daily_rwb = []
-# stoch = []
-# stoch_under = []
-# stage_two = []
-# dist_days = []
-# dist_days_limit = []
-# below_green = []
-
 # pull stock names
+stock_name = []
 for i in range(0, len(input)):
     stock_name.append(str(input[i]).rstrip())  
     
@@ -173,7 +207,7 @@ for j in range(0, len(stock_name)):
     line = stock_name[j] + " "
     for k in range(0, len(nums) - 1):
         line += str(nums[k]) + " "
-    line += str(nums[15]) + "\n"
+    line += str(nums[14]) + "\n"
     
     file.write(line)
     
