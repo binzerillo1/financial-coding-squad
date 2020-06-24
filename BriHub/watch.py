@@ -72,36 +72,36 @@ tk.Label(root, text = "Stock",padx = 10, font=("Arial", 10)).grid(row = 0, colum
 tk.Label(root, text = "GDOT", padx = 5, font=("Arial", 10)).grid(row = 0, column = 1)
 tk.Label(root, text = "BBSQ", padx = 5, font=("Arial", 10)).grid(row = 0, column = 2)
 tk.Label(root, text = "BBDP", padx = 5, font=("Arial", 10)).grid(row = 0, column = 3)
-tk.Label(root, text = "GLBO", padx = 5, font=("Arial", 10)).grid(row = 0, column = 4)
+#tk.Label(root, text = "GLBO", padx = 5, font=("Arial", 10)).grid(row = 0, column = 4)
 tk.Label(root, text = "StUn", padx = 5, font=("Arial", 10)).grid(row = 0, column = 5)
 tk.Label(root, text = "Stg2", padx = 5, font=("Arial", 10)).grid(row = 0, column = 6)
 tk.Label(root, text = "DRWB", padx = 5, font=("Arial", 10)).grid(row = 0, column = 7)
-tk.Label(root, text = "Dist", padx = 5, font=("Arial", 10)).grid(row = 0, column = 8)
-tk.Label(root, text = "BGrL", padx = 5, font=("Arial", 10)).grid(row = 0, column = 9)
+#tk.Label(root, text = "Dist", padx = 5, font=("Arial", 10)).grid(row = 0, column = 8)
+#tk.Label(root, text = "BGrL", padx = 5, font=("Arial", 10)).grid(row = 0, column = 9)
 tk.Label(root, text = "",     padx = 10, font=("Arial", 10)).grid(row = 0, column = 10)
 tk.Label(root, text = "Stock",padx = 10, font=("Arial", 10)).grid(row = 0, column =11)
 tk.Label(root, text = "GDOT", padx = 5, font=("Arial", 10)).grid(row = 0, column = 12)
 tk.Label(root, text = "BBSQ", padx = 5, font=("Arial", 10)).grid(row = 0, column = 13)
 tk.Label(root, text = "BBDP", padx = 5, font=("Arial", 10)).grid(row = 0, column = 14)
-tk.Label(root, text = "GLBO", padx = 5, font=("Arial", 10)).grid(row = 0, column = 15)
+#tk.Label(root, text = "GLBO", padx = 5, font=("Arial", 10)).grid(row = 0, column = 15)
 tk.Label(root, text = "StUn", padx = 5, font=("Arial", 10)).grid(row = 0, column = 16)
 tk.Label(root, text = "Stg2", padx = 5, font=("Arial", 10)).grid(row = 0, column = 17)
 tk.Label(root, text = "DRWB", padx = 5, font=("Arial", 10)).grid(row = 0, column = 18)
-tk.Label(root, text = "Dist", padx = 5, font=("Arial", 10)).grid(row = 0, column = 19)
-tk.Label(root, text = "BGrL", padx = 5, font=("Arial", 10)).grid(row = 0, column = 20)
+#tk.Label(root, text = "Dist", padx = 5, font=("Arial", 10)).grid(row = 0, column = 19)
+#tk.Label(root, text = "BGrL", padx = 5, font=("Arial", 10)).grid(row = 0, column = 20)
 tk.Label(root, text = "",     padx = 10, font=("Arial", 10)).grid(row = 0, column = 21)
 tk.Label(root, text = "Stock",padx = 10, font=("Arial", 10)).grid(row = 0, column =22)
 tk.Label(root, text = "GDOT", padx = 5, font=("Arial", 10)).grid(row = 0, column = 23)
 tk.Label(root, text = "BBSQ", padx = 5, font=("Arial", 10)).grid(row = 0, column = 24)
 tk.Label(root, text = "BBDP", padx = 5, font=("Arial", 10)).grid(row = 0, column = 25)
-tk.Label(root, text = "GLBO", padx = 5, font=("Arial", 10)).grid(row = 0, column = 26)
+#tk.Label(root, text = "GLBO", padx = 5, font=("Arial", 10)).grid(row = 0, column = 26)
 tk.Label(root, text = "StUn", padx = 5, font=("Arial", 10)).grid(row = 0, column = 27)
 tk.Label(root, text = "Stg2", padx = 5, font=("Arial", 10)).grid(row = 0, column = 28)
 tk.Label(root, text = "DRWB", padx = 5, font=("Arial", 10)).grid(row = 0, column = 29)
-tk.Label(root, text = "Dist", padx = 5, font=("Arial", 10)).grid(row = 0, column = 30)
-tk.Label(root, text = "BGrL", padx = 5, font=("Arial", 10)).grid(row = 0, column = 31)
+#tk.Label(root, text = "Dist", padx = 5, font=("Arial", 10)).grid(row = 0, column = 30)
+#tk.Label(root, text = "BGrL", padx = 5, font=("Arial", 10)).grid(row = 0, column = 31)
 
-offset = 33
+offset = int(len(input)/3)
 
 for k in range(0, offset):
     
@@ -115,7 +115,7 @@ for k in range(0, offset):
         tk.Label(root, text = green_dot_days[k], padx = 10, bg = 'green', font=("Arial", 10)).grid(row = k+1, column = 1)
     if (green_dot[k+offset] == 'True'):
         tk.Label(root, text = green_dot_days[k+offset], padx = 10, bg = 'green', font=("Arial", 10)).grid(row = k+1, column = 12)
-    if (green_dot[k+offset] == 'True'):
+    if (green_dot[k+2*offset] == 'True'):
         tk.Label(root, text = green_dot_days[k+2*offset], padx = 10, bg = 'green', font=("Arial", 10)).grid(row = k+1, column = 23)
         
     # bb sq - days are in the middle 
@@ -135,9 +135,9 @@ for k in range(0, offset):
         tk.Label(root, text = " ", padx = 10, bg = 'green', font=("Arial", 10)).grid(row = k+1, column = 25) 
     
     # IP Green Line Breakouts
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 4)
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 15)
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 26)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 4)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 15)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 26)
     
     # stoch_under
     if (stoch_under[k] == 'True'):
@@ -161,13 +161,13 @@ for k in range(0, offset):
         tk.Label(root, text = " " , padx = 10, bg = 'blue', font=("Arial", 10)).grid(row = k+1, column = 29)    
         
     # IP dist. days
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 8)
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 19)
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 30)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 8)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 19)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 30)
     # IP Stage below green line
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 9)
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 20)
-    tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 31)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 9)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 20)
+    #tk.Label(root, text = "IP", padx = 10, font=("Arial", 10)).grid(row = k+1, column = 31)
 
 
 

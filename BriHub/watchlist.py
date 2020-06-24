@@ -87,6 +87,7 @@ def Crank(stck):
     
     stoch = []
     x = -1
+    print(stck)
     while (x > -20) :
         if ( x < -1):
             low_last_ten = float(min(data.Low[x-9:x+1]))
